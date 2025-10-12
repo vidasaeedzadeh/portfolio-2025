@@ -1,4 +1,4 @@
-# 🧠 Pandas, NumPy, Functions & Classes — Quick Reference
+# Pandas, NumPy, Functions & Classes — Quick Reference
 
 A compact refresher on the Python data-science stack and core programming patterns.
 
