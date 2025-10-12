@@ -28,7 +28,7 @@ df["new"] = df["a"] * 2
 df.drop(columns=["unneeded"], inplace=True)
 df.sort_values("a", ascending=False)
 
-🔹 Filtering & Cleaning
+## 🔹 Filtering & Cleaning
 df[df["a"] > 0]
 df.query("a > 0 and b == 'yes'")
 
@@ -55,7 +55,7 @@ df.pivot(index="id", columns="feature", values="value")
 df.pivot_table(values="val", index="group", aggfunc="mean")
 
 
-🔹 Strings & Regex
+## 🔹 Strings & Regex
 # Python
 s = "Galaxy"
 s.find("l"); s.replace("a","@"); "-".join(["A","B"])
@@ -65,7 +65,7 @@ df["col"].str.lower()
 df["col"].str.contains("pattern", regex=True)
 df["col"].str.extract(r"(\d{4})")
 
-🔹 Dates & Times
+## 🔹 Dates & Times
 pd.Timestamp("2020-01-01")
 pd.date_range("2020-01-01", periods=7, freq="D")
 
@@ -73,7 +73,7 @@ df["date"] = pd.to_datetime(df["date"])
 df["year"] = df["date"].dt.year
 df.set_index("date").resample("M").mean()
 
-🔹 Combine / Aggregate
+## 🔹 Combine / Aggregate
 pd.concat([df1, df2], axis=0)
 df1.merge(df2, on="id", how="left")
 
@@ -84,7 +84,7 @@ df.applymap(lambda x: str(x).upper())
 # Grouping
 df.groupby("cat")["val"].agg(["mean","max"])
 
-🔹 NumPy Basics
+## 🔹 NumPy Basics
 import numpy as np
 
 a = np.arange(6).reshape(2,3)
@@ -96,7 +96,7 @@ np.random.rand(2,3)
 # Broadcasting
 a + np.array([1,2,3])
 
-🔹 Python Core Patterns
+## 🔹 Python Core Patterns
 # Lists / Dicts / Sets
 lst = [1,2,3]; d = {"a":1, "b":2}
 lst.append(4); d["c"] = 3
