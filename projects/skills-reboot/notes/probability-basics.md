@@ -71,6 +71,7 @@ P(A ∪ B) = P(A) + P(B) − P(A ∩ B)
 P(A ∩ B) = P(A)·P(B)   # if independent
 Var(X) = E[X²] − (E[X])²
 H(X) = −Σ P(x)·log P(x)
+```text
 
 # 🎯 DSCI 551 Lecture 2 – Parametric Families
 
