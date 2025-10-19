@@ -365,5 +365,177 @@ If independent → Cov(X,Y)=0 → \(Var(X+Y)=Var(X)+Var(Y)\).
 
 ---
 
+# 🎯 DSCI 551 Lecture 4 — Conditional Probability & Independence
+
+Clear, practical refresher on conditional probabilities, conditional expectations, and conditional independence.
+
+---
+
+## 1️⃣ Univariate Conditional Probability
+
+**Definition**
+
+\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0
+\]
+
+Interpretation → event B becomes the new sample space.
+
+---
+
+### Example: Ship Length of Stay (L)
+
+| L (days) | P(L) |
+|-----------|------|
+| 1 | 0.25 |
+| 2 | 0.35 |
+| 3 | 0.20 |
+| 4 | 0.10 |
+| 5 | 0.10 |
+
+**Find:** distribution of L given L > 2
+
+\[
+P(L=l \mid L>2)=\frac{P(L=l)}{P(L>2)}
+\]
+\[
+P(L>2)=0.2+0.1+0.1=0.4
+\]
+
+| L | P(L=l \| L>2) |
+|---|----------------|
+| 3 | 0.50 |
+| 4 | 0.25 |
+| 5 | 0.25 |
+
+→ conditional distribution must still sum to 1 (renormalized).
+
+---
+
+## 2️⃣ Conditional Probability Distributions (Multivariate)
+
+For discrete random variables X and Y:
+
+\[
+P(X=x \mid Y=y) = \frac{P(X=x, Y=y)}{P(Y=y)}
+\]
+
+A proper PMF:
+\[
+\sum_x P(X=x \mid Y=y) = 1
+\]
+
+---
+
+### Example: Cargo Ships (L = length of stay, G = gangs)
+
+Conditional on L = 1:
+
+\[
+P(G=g \mid L=1) = \frac{P(G=g, L=1)}{P(L=1)}
+\]
+
+| G | P(G=g \| L=1) |
+|---|----------------|
+| 1 | 0.0068 |
+| 2 | 0.1701 |
+| 3 | 0.4988 |
+| 4 | 0.3242 |
+
+✅ Check: probabilities sum to 1.
+
+---
+
+### Conditional Expectation
+
+For discrete X | Y=y:
+
+\[
+E(X \mid Y=y)=\sum_x x P(X=x\mid Y=y)
+\]
+
+**Example:**  
+\(E(G)=2.3\);  
+\(E(G \mid L=1)=3.14\) ⇒ expected # of gangs increases when stay = 1 day.
+
+---
+
+## 3️⃣ Independence & Conditional Independence
+
+### Independence
+\[
+P(X=x, Y=y)=P(X=x)\,P(Y=y)
+\]
+\[
+P(Y=y\mid X=x)=P(Y=y)
+\]
+
+→ knowing X does not change belief about Y.
+
+---
+
+### Conditional Independence
+X and Y are conditionally independent given Z if:
+\[
+P(X=x, Y=y \mid Z=z)=P(X=x \mid Z=z)\,P(Y=y \mid Z=z)
+\]
+
+---
+
+#### Example: DSCI 551 Grades
+
+- L = Lab grade (low/high)  
+- Q = Quiz grade (low/high)  
+- S = Statistics major (yes/no)
+
+Without conditioning → L and Q not independent.  
+Given S = yes or S = no → conditionally independent.
+
+So:  
+> Lab and quiz grades become independent *after conditioning* on whether the student is a Statistics major.
+
+---
+
+## 4️⃣ Law of Total Expectation
+
+A marginal mean can be reconstructed from conditional means:
+
+\[
+E[Y] = \sum_x E[Y\mid X=x]\,P(X=x)
+\]
+or equivalently  
+\[
+E[Y]=E_X[E[Y\mid X]]
+\]
+
+**Example (ships):**
+
+| L | E(G | L) | P(L) | Product |
+|---|-----------|-------|----------|
+| 1 | 3.14 | 0.25 | 0.785 |
+| 2 | 2.41 | 0.35 | 0.844 |
+| 3 | 1.92 | 0.20 | 0.383 |
+| 4 | 1.60 | 0.10 | 0.160 |
+| 5 | 1.27 | 0.10 | 0.127 |
+
+\[
+E(G)=\sum E(G\mid L)\,P(L)=2.3
+\]
+
+---
+
+## 5️⃣ Key Takeaways
+
+- **Conditional probability:** restrict sample space → renormalize.  
+- **Conditional distribution:** table or formula form; sums to 1.  
+- **Conditional expectation:** expected value under new condition.  
+- **Independence:** joint = product of marginals.  
+- **Conditional independence:** joint conditional = product of conditionals.  
+- **Law of Total Expectation:** marginal = weighted average of conditionals.
+
+---
+
+
+
 
 
