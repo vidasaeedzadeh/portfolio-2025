@@ -534,6 +534,190 @@ E(G)=\sum E(G\mid L)\,P(L)=2.3
 - **Law of Total Expectation:** marginal = weighted average of conditionals.
 
 ---
+# 📈 DSCI 551 Lecture 5 — Continuous Distributions
+
+A concise refresher on continuous random variables, probability density functions (PDFs), their properties, and key continuous distribution tools.
+
+---
+
+## 1️⃣ Continuous Random Variables
+- Outcomes are **uncountably infinite** (e.g., temperature, water level, stock price).  
+- Treated as continuous when neighboring values’ differences are negligible.  
+- Measurement precision is limited by instruments.
+
+🧩 Rule of thumb: treat a variable as continuous if “± 0.01” changes don’t matter.
+
+---
+
+## 2️⃣ Probability Density Function (PDF)
+
+### Physical analogy — density
+Think of **mass density**: weight per unit length (tree example).  
+The *total mass* = ∫ density × thickness.  
+Analogously, total probability = ∫ f(x) dx = 1.
+
+### Key properties
+| Property | Discrete (PMF) | Continuous (PDF) |
+|-----------|----------------|------------------|
+| Symbol | p(x)=P(X=x) | f(x) |
+| Probability calc | directly P(X=x) | integrate over range |
+| Normalization | Σ p(x)=1 | ∫ f(x) dx=1 |
+
+### Probability of an interval
+\[
+P(a ≤ X ≤ b) = \int_a^b f_X(x)\,dx
+\]
+Probability of an exact value is **zero**.  
+👉 We only compute probabilities **over intervals**.
+
+### Units
+PDF units = 1 / (unit of x)  
+E.g. height → m⁻¹
+
+---
+
+### Example: Low-Purity Octane
+\[
+f_X(x)=
+\begin{cases}
+2x, & 0≤x≤1\\
+0, & \text{elsewhere}
+\end{cases}
+\]
+
+- Valid PDF since ∫₀¹ 2x dx = 1.  
+- \(P(X=0.25)=0\) (single value).  
+- \(P(X<0.5)=\int₀^{0.5}2x\,dx=0.25.\)
+
+---
+
+## 3️⃣ Distribution Properties
+
+### Mean & Variance
+\[
+E[X]=\int x f_X(x)\,dx,\qquad
+Var[X]=E[(X−E[X])²]=E[X²]−(E[X])²
+\]
+
+Example: for f(x)=2x on [0,1]:
+- \(E[X]=2/3 ≈ 0.67\)
+- \(Var[X]=1/18 ≈ 0.056\)
+
+---
+
+### Mode
+\[
+Mode(X)=\arg\max_x f_X(x)
+\]
+Highest density point; less useful for continuous X.
+
+For f(x)=2x on [0,1]: Mode = 1.
+
+---
+
+### Entropy (“differential entropy”)
+\[
+H(X)=−\int f(x)\log f(x)\,dx
+\]
+Can be positive, negative, or ∞.  
+Example: H ≈ −0.19 for f(x)=2x on [0,1].
+
+---
+
+### Median and Quantiles
+- **Median M:** P(X ≤ M)=0.5  
+  → for f(x)=2x: M²=0.5 → M = 0.7071  
+- **Quantile Q(p):** P(X ≤ Q(p))=p  
+  → Q(0.25) = √0.25 = 0.5  
+
+---
+
+### Prediction Intervals via Quantiles
+For central p probability:
+\[
+P(Q_{(1−p)/2} < X < Q_{(1+p)/2}) = p
+\]
+Example (90% interval for f(x)=2x): Q(0.05)=0.2236, Q(0.95)=0.9747.
+
+---
+
+### Skewness
+Measures asymmetry:
+\[
+Skew(X)=E\!\left[\!\left(\frac{X−μ}{σ}\right)^3\!\right]
+\]
+- = 0 → symmetric  
+- > 0 → right-skewed  
+- < 0 → left-skewed
+
+---
+
+## 4️⃣ Alternative Distribution Representations
+
+| Representation | Definition | Notes |
+|----------------|-------------|-------|
+| **CDF F(x)** | P(X ≤ x)=∫_{−∞}^x f(t) dt | Non-decreasing, 0→1 |
+| **Survival S(x)** | P(X > x)=1−F(x) | “flip” of CDF |
+| **Quantile Q(p)** | F⁻¹(p) | maps prob → value |
+| **PDF ↔ CDF** | f(x)=dF/dx | CDF flat → PDF 0 |
+
+Valid CDF conditions:
+1️⃣ Non-decreasing  
+2️⃣ 0 ≤ F(x) ≤ 1  
+3️⃣ F(−∞)=0, F(∞)=1
+
+**Using CDF for probabilities:**
+\[
+P(a≤X≤b)=F(b)−F(a)
+\]
+
+---
+
+## 5️⃣ Exponential Distribution
+
+Models time between Poisson events (wait time until next event).
+
+### Parameterizations
+\[
+X∼Exp(λ) \quad\text{or}\quad X∼Exp(β=1/λ)
+\]
+- λ = rate (events per unit time)  
+- β = mean wait time
+
+### PDF & Properties
+\[
+f(x)=λe^{−λx},\quad x≥0
+\]
+\[
+E[X]=1/λ,\quad Var[X]=1/λ²
+\]
+Memoryless property:
+\[
+P(X>t+s\mid X>s)=P(X>t)
+\]
+
+---
+
+### R functions (in practice)
+| Function | Purpose |
+|-----------|----------|
+| `dexp(x, rate)` | density f(x) |
+| `pexp(q, rate)` | CDF F(x) |
+| `qexp(p, rate)` | quantile Q(p) |
+| `rexp(n, rate)` | random draws |
+
+---
+
+## 🧠 Key Takeaways
+- Continuous RV → uncountable outcomes.  
+- Probabilities = areas under PDF; P(X=x)=0.  
+- Mean = expected value via integral.  
+- Quantiles generalize median; enable prediction intervals.  
+- CDF, Survival, Quantile functions all represent same distribution.  
+- Exponential distribution = Poisson inter-arrival times; memoryless.
+
+---
+
 
 
 
