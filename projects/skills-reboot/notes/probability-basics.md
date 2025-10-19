@@ -223,4 +223,147 @@ Typical uses: # emails/day, # arrivals/hour, etc.
 
 ---
 
+# 📊 DSCI 551 Lecture 3 — Joint Distributions & Dependence
+
+A refresher on how multiple random variables interact through joint, marginal, and conditional distributions, and how dependence is measured.
+
+---
+
+## 1️⃣ Joint Distributions
+
+- A **joint distribution** gives the probability of every possible combination of two (or more) random variables.  
+  Example: two fair coins (X = first coin, Y = second coin)
+
+| X\Y | H  | T  |
+|------|----|----|
+| H | 0.25 | 0.25 |
+| T | 0.25 | 0.25 |
+
+Each cell → `P(X=x, Y=y)`.
+
+> For independent fair coins:  
+> `P(X=H ∩ Y=H) = P(X=H)·P(Y=H) = 0.5·0.5 = 0.25`.
+
+The full table must sum to 1.
+
+---
+
+## 2️⃣ Marginal Distributions
+
+The probability distribution of one variable alone.  
+Compute by **summing** over the other variable:
+
+\[
+P(X=x) = \sum_y P(X=x, Y=y)
+\]
+\[
+P(Y=y) = \sum_x P(X=x, Y=y)
+\]
+
+> Only the *whole table* sums to 1 — not each row/column.
+
+---
+
+## 3️⃣ Independence of Random Variables
+
+Two RVs X, Y are independent iff
+
+\[
+P(X=x, Y=y) = P(X=x) · P(Y=y)\quad \forall x,y
+\]
+
+Equivalent properties:
+
+- \(E[XY]=E[X]E[Y]\)  
+- \(Var(X+Y)=Var(X)+Var(Y)\) when independent  
+
+Independence means knowing one variable gives no information about the other.
+
+---
+
+## 4️⃣ Dependence & Covariance
+
+When X and Y are not independent, we can measure their dependence.
+
+**Covariance**
+\[
+Cov(X,Y)=E[(X−E[X])(Y−E[Y])]=E[XY]−E[X]E[Y]
+\]
+
+- \(Cov>0\) ⇒ as X increases, Y tends to increase.  
+- \(Cov<0\) ⇒ as X increases, Y tends to decrease.  
+- \(Cov=0\) ⇒ no *linear* relationship (but not necessarily independent).
+
+**Example:**  
+Ship length of stay (LOS) vs gang demand  
+→ negative covariance ≈ −0.74 → longer stays → fewer gangs requested.
+
+---
+
+## 5️⃣ Correlation Coefficients
+
+### **Pearson Correlation (ρ)**  
+Standardizes covariance to (−1 … 1):
+
+\[
+ρ(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
+\]
+
+- -1 → perfect negative linear relation  
+- 0 → no linear relation (≠ independence)  
+- 1 → perfect positive linear relation  
+Invariant to scaling: Corr(10X, Y)=Corr(X,Y)
+
+---
+
+### **Kendall’s τ (Rank Correlation)**
+For ordinal or non-linear relations.
+
+\[
+τ_K=\frac{\# concordant pairs−\# discordant pairs}{n(n−1)/2}
+\]
+
+- τ ≈ 1 → strong positive association  
+- τ ≈ 0 → no monotonic relationship  
+- τ ≈ −1 → strong negative association
+
+Captures *monotonic* (not just linear) dependence.
+
+---
+
+## 6️⃣ Variance of a Sum
+
+For any two RVs:
+
+\[
+Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)
+\]
+
+If independent → Cov(X,Y)=0 → \(Var(X+Y)=Var(X)+Var(Y)\).
+
+---
+
+## 7️⃣ Quick Reference Formulas
+
+| Concept | Formula | Notes |
+|----------|----------|-------|
+| Joint probability | \(P(X,Y)\) | table of combined outcomes |
+| Marginal | \(\sum P(X,Y)\) | sum over other var |
+| Independence | \(P(X,Y)=P(X)P(Y)\) | or \(E[XY]=E[X]E[Y]\) |
+| Covariance | \(E[XY]−E[X]E[Y]\) | can be ± |
+| Pearson ρ | \(Cov(X,Y)/√(Var(X)Var(Y))\) | linear dependence (−1→1) |
+| Kendall τ | rank-based measure | monotonic dependence |
+
+---
+
+## 🧠 Key Takeaways
+- Marginals are derived by summing joint probabilities.  
+- Independence simplifies joint → product of marginals.  
+- Covariance and correlation quantify dependence.  
+- Pearson = linear relationship; Kendall τ = monotonic relationship.  
+- Variance of sum includes covariance term if variables dependent.
+
+---
+
+
 
